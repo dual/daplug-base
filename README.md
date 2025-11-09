@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/license-apache%202.0-blue)](LICENSE)
 [![Tests](https://img.shields.io/badge/tests-passing-blue)](#-local-development)
 
-`daplug-base` is the tiny layer of glue that both [`daplug-ddb`](../daplug-ddb) and [`daplug-cypher`](../daplug-cypher) relied on in their old `common/` directories. It bundles a publisher, logging shim, schema utilities, and merge helpers so the higher-level adapters can stay laser-focused on their respective datastores. This repository is not meant to be a fully fledged adapter on its own—it simply centralizes the primitives the adapters share.
+`daplug-base` is the tiny layer of glue that both `daplug-ddb`, `daplug-cypher`, and future `daplug-*` projects, relied on in their old `common/` directories. It bundles a publisher, logging shim, schema utilities, and merge helpers so the higher-level adapters can stay laser-focused on their respective datastores. This repository is not meant to be a fully fledged adapter on its own—it simply centralizes the primitives the adapters share.
 
 ---
 
