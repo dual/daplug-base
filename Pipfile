@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = "3.9.17"
+
+[packages]
+boto3 = "*"
+jsonref = "*"
+simplejson = "*"
+
+[dev-packages]
+mypy = "*"
+lxml = "*"
+pylint = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-html = "*"
+
+[scripts]
+lint = "pylint --fail-under 10 daplug_base"
+test = "pytest tests"
