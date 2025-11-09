@@ -22,7 +22,7 @@
 - **Schema-first tooling** – `schema_loader` and `schema_mapper` read OpenAPI/JSON schemas and project payloads to the shapes your adapters expect.
 - **Deterministic merging** – `dict_merger` upgrades nested payloads with configurable list/dict strategies (add, replace, remove) so you can keep optimistic writes tight.
 
-If you are migrating `daplug-ddb` or `daplug-cypher`, remove their legacy `common/` folder and import from `daplug_base` instead. Nothing else changes.
+If you are migrating `daplug-ddb` or `daplug-cypher`, remove their legacy `common/` folder and import from `daplug_core` instead. Nothing else changes.
 
 ---
 
@@ -46,11 +46,11 @@ pipenv install daplug-base
 
 1. **Declare the dependency** in the adapter package (e.g. `daplug-ddb`) via Pipfile/pyproject.
 2. **Drop the duplicated modules** (`common/logger.py`, `common/publisher.py`, etc.).
-3. **Import from `daplug_base`** wherever those utilities were previously referenced.
+3. **Import from `daplug_core`** wherever those utilities were previously referenced.
 
 ```python
 # inside daplug-ddb
-from daplug_base import dict_merger, json_helper, publisher, schema_mapper
+from daplug_core import dict_merger, json_helper, publisher, schema_mapper
 
 merged = dict_merger.merge(original, incoming, update_list_operation="replace")
 publisher.publish(arn=sns_arn, data=merged, attributes={"event": "updated"})
@@ -84,7 +84,7 @@ from . import logger
 import boto3
 
 # after
-from daplug_base import publisher
+from daplug_core import publisher
 
 publisher.publish(
     arn=self.sns_arn,
@@ -100,7 +100,7 @@ publisher.publish(
 from .common.dict_merger import merge
 
 # after
-from daplug_base import dict_merger
+from daplug_core import dict_merger
 
 updated_item = dict_merger.merge(original, patch, update_list_operation="replace")
 ```
@@ -121,8 +121,8 @@ pipenv install --dev
 
 ```bash
 pipenv run test       # pytest tests/
-pipenv run test-cov   # pytest --cov=daplug_base --cov-report=term-missing
-pipenv run lint       # pylint --fail-under 10 daplug_base
+pipenv run test-cov   # pytest --cov=daplug_core --cov-report=term-missing
+pipenv run lint       # pylint --fail-under 10 daplug_core
 ```
 
 ### Ship updates downstream

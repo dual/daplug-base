@@ -1,6 +1,6 @@
 import json
 
-from daplug_base import logger
+from daplug_core import logger
 
 
 def test_log_prints_payload_when_not_unittest(monkeypatch, capsys):

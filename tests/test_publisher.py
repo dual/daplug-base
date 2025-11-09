@@ -1,7 +1,7 @@
 import json
 from types import SimpleNamespace
 
-from daplug_base import publisher
+from daplug_core import publisher
 from tests.mocks.fakes import FakeSNSClient, RecordingLogger
 
 

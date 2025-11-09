@@ -1,6 +1,6 @@
 import pytest
 
-from daplug_base import base_adapter
+from daplug_core import base_adapter
 from tests.mocks.fakes import RecordingPublisher
 
 

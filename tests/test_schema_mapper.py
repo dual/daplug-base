@@ -1,4 +1,4 @@
-from daplug_base import schema_mapper
+from daplug_core import schema_mapper
 
 
 def test_map_to_schema_handles_all_of(monkeypatch):

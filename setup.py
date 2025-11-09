@@ -11,15 +11,15 @@ def read_long_description():
 
 
 setup(
-    name="daplug-base",
+    name="daplug-core",
     version=os.getenv("CIRCLE_TAG", "0.1.0"),
-    url="https://github.com/dual/daplug-base",
+    url="https://github.com/dual/daplug-core",
     author="Paul Cruse III",
     author_email="paulcruse3@gmail.com",
     description="Shared schema, merge, and SNS helpers powering daplug adapters.",
     long_description=read_long_description(),
     long_description_content_type="text/markdown",
-    packages=find_packages(include=["daplug_base", "daplug_base.*"]),
+    packages=find_packages(include=["daplug_core", "daplug_core.*"]),
     python_requires=">=3.9",
     install_requires=[
         "boto3>=1.34",
@@ -37,11 +37,11 @@ setup(
         "python-library",
     ],
     project_urls={
-        "Homepage": "https://github.com/dual/daplug-base",
-        "Documentation": "https://github.com/dual/daplug-base#readme",
-        "Source Code": "https://github.com/dual/daplug-base",
-        "Bug Reports": "https://github.com/dual/daplug-base/issues",
-        "CI/CD": "https://circleci.com/gh/dual/daplug-base",
+        "Homepage": "https://github.com/dual/daplug-core",
+        "Documentation": "https://github.com/dual/daplug-core#readme",
+        "Source Code": "https://github.com/dual/daplug-core",
+        "Bug Reports": "https://github.com/dual/daplug-core/issues",
+        "CI/CD": "https://circleci.com/gh/dual/daplug-core",
     },
     classifiers=[
         "Development Status :: 3 - Alpha",

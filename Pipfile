@@ -21,6 +21,6 @@ pytest-cov = "*"
 pytest-html = "*"
 
 [scripts]
-lint = "pylint --fail-under 10 daplug_base"
+lint = "pylint --fail-under 10 daplug_core"
 test = "pytest tests"
-coverage = "coverage run --source daplug_base -m pytest tests --cov=daplug_base --junitxml ./coverage/reports/junit.xml --cov-report xml:./coverage/reports/cov.xml --html=./coverage/reports/index.html --self-contained-html --cov-report html:./coverage/pretty -p no:warnings -o log_cli=true"
+coverage = "coverage run --source daplug_core -m pytest tests --cov=daplug_core --junitxml ./coverage/reports/junit.xml --cov-report xml:./coverage/reports/cov.xml --html=./coverage/reports/index.html --self-contained-html --cov-report html:./coverage/pretty -p no:warnings -o log_cli=true"

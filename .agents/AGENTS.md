@@ -23,7 +23,7 @@ Any enhancement to these utilities will ripple into the datastore-specific adapt
 
 ```txt
 .
-├── daplug_base/        # runtime package modules
+├── daplug_core/        # runtime package modules
 ├── tests/              # one-to-one test coverage for each module
 │   └── mocks/          # reusable RecordingPublisher/FakeSNS/etc.
 ├── Pipfile             # runtime/dev dependencies + helper scripts
@@ -32,7 +32,7 @@ Any enhancement to these utilities will ripple into the datastore-specific adapt
 └── .agents/AGENTS.md   # this guide
 ```
 
-Key expectation: every file inside `daplug_base/` has a twin in `tests/` (e.g., `daplug_base/logger.py` ↔ `tests/test_logger.py`). Keep that symmetry when adding modules.
+Key expectation: every file inside `daplug_core/` has a twin in `tests/` (e.g., `daplug_core/logger.py` ↔ `tests/test_logger.py`). Keep that symmetry when adding modules.
 
 ---
 
@@ -50,9 +50,9 @@ Useful scripts (defined in `Pipfile`):
 
 | Script              | Command                                                   |
 | ------------------- | --------------------------------------------------------- |
-| `pipenv run lint`   | `pylint --fail-under 10 daplug_base`                      |
+| `pipenv run lint`   | `pylint --fail-under 10 daplug_core`                      |
 | `pipenv run test`   | `pytest tests`                                            |
-| `pipenv run test-cov` | `pytest --cov=daplug_base --cov-report=term-missing`   |
+| `pipenv run test-cov` | `pytest --cov=daplug_core --cov-report=term-missing`   |
 
 Prefer `pipenv run <script>` so dependencies from the virtualenv are guaranteed.
 
@@ -80,7 +80,7 @@ Pytest is configured in `setup.cfg` (`testpaths = tests`). No extra flags are ne
 
 ### 5.1 Updating the Base Adapter
 
-`daplug_base/base_adapter.py` only wires SNS attributes together. If you need to add a new piece of metadata:
+`daplug_core/base_adapter.py` only wires SNS attributes together. If you need to add a new piece of metadata:
 
 1. Update `BaseAdapter.create_format_attributes` with the merge logic.
 2. Add/adjust tests in `tests/test_base_adapter.py` to assert the new metadata.
@@ -105,7 +105,7 @@ Whenever `daplug-base` is updated, the datastore adapters need to:
 
 1. Bump their dependency to the new version (`pipenv install --dev ../daplug-base` during development or install from PyPI once released).
 2. Remove any residual `common/` code (since it’s now redundant).
-3. Replace imports: `from daplug_base import dict_merger` instead of `from .common.dict_merger import merge`.
+3. Replace imports: `from daplug_core import dict_merger` instead of `from .common.dict_merger import merge`.
 4. Re-run their pipelines (`pipenv run test`, custom integration suites, etc.) to ensure nothing broke downstream.
 
 Document these steps in PR descriptions so future reviewers know how the base change propagates.
@@ -131,7 +131,7 @@ pipenv run pytest tests/test_schema_mapper.py
 pipenv lock
 
 # Verify import paths resolve (fails fast on syntax errors)
-python -m compileall daplug_base
+python -m compileall daplug_core
 ```
 
 Keep this file updated as the project evolves so future agents inherit the latest tribal knowledge.

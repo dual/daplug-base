@@ -1,6 +1,6 @@
 import json
 
-from daplug_base import json_helper
+from daplug_core import json_helper
 
 
 def test_try_decode_json_parses_strings():

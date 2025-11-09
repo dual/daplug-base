@@ -1,4 +1,4 @@
-from daplug_base import schema_loader
+from daplug_core import schema_loader
 
 
 def test_load_schema_reads_file(tmp_path):

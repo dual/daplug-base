@@ -1,4 +1,4 @@
-from daplug_base import dict_merger
+from daplug_core import dict_merger
 
 
 def test_merge_updates_nested_dicts_and_adds_unique_items():

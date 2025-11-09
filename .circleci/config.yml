@@ -11,9 +11,9 @@ commands:
             - run: pipenv run test
             - run: pipenv run coverage
             - store_artifacts:
-                path: ./coverage
+                  path: ./coverage
             - store_test_results:
-                path: ./coverage/reports/junit.xml
+                  path: ./coverage/reports/junit.xml
     pypi-setup:
         steps:
             - run: echo -e "[pypi]" >> ~/.pypirc
@@ -28,17 +28,17 @@ commands:
     lint-code:
         steps:
             - run: pipenv run lint
-            - run: pipenv run pylint daplug_base --output-format=json > ./coverage/lint/pylint_report.json || exit 0
+            - run: pipenv run pylint daplug_core --output-format=json > ./coverage/lint/pylint_report.json || exit 0
             - run: pipenv run pylint-json2html ./coverage/lint/pylint_report.json -o ./coverage/lint/pylint_report.html || exit 0
             - store_artifacts:
-                path: ./coverage/lint
+                  path: ./coverage/lint
 jobs:
     lint:
         docker:
             - image: cimg/python:3.9.17
         steps:
             - attach_workspace:
-                at: ~/project
+                  at: ~/project
             - setup-artifacts
             - lint-code
     test:
@@ -46,7 +46,7 @@ jobs:
             - image: cimg/python:3.9.17
         steps:
             - attach_workspace:
-                at: ~/project
+                  at: ~/project
             - setup-artifacts
             - python-test-report
             - sonarcloud/scan
@@ -57,12 +57,12 @@ jobs:
             - checkout:
                   method: full
             - python/install-packages:
-                pkg-manager: pipenv
-                args: '--dev'
+                  pkg-manager: pipenv
+                  args: "--dev"
             - persist_to_workspace:
-                root: ~/project
-                paths:
-                    - ./*
+                  root: ~/project
+                  paths:
+                      - ./*
     install-build-publish:
         docker:
             - image: cimg/python:3.9.17
@@ -70,30 +70,30 @@ jobs:
             - checkout:
                   method: full
             - python/install-packages:
-                pkg-manager: pipenv
+                  pkg-manager: pipenv
             - pypi-setup
             - pypi-publish
 workflows:
     install-build-publish-workflow:
         jobs:
             - install-build-publish:
-                context:
-                    - pipenv
-                filters:
-                    tags:
-                        only: /.*/
-                    branches:
-                        ignore: /.*/
+                  context:
+                      - pipenv
+                  filters:
+                      tags:
+                          only: /.*/
+                      branches:
+                          ignore: /.*/
     install-build-test-workflow:
         jobs:
             - install-build:
-                context:
-                    - pipenv
+                  context:
+                      - pipenv
             - lint:
-                requires:
-                    - install-build
+                  requires:
+                      - install-build
             - test:
-                context:
-                    - sonarcloud
-                requires:
-                    - install-build
+                  context:
+                      - sonarcloud
+                  requires:
+                      - install-build
