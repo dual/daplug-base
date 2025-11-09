@@ -1,12 +1,12 @@
-# 🤖 Agent Playbook for `daplug-base`
+# 🤖 Agent Playbook for `daplug-core`
 
-This mini playbook explains how to operate on the `daplug-base` repository without hunting around the tree. Treat it as your field manual whenever you need to patch shared helpers for `daplug-ddb` or `daplug-cypher`.
+This mini playbook explains how to operate on the `daplug-core` repository without hunting around the tree. Treat it as your field manual whenever you need to patch shared helpers for `daplug-ddb` or `daplug-cypher`.
 
 ---
 
 ## 1. Mission Overview
 
-`daplug-base` contains the primitives that were previously duplicated inside the `common/` folders of `daplug-ddb` and `daplug-cypher`. It exposes:
+`daplug-core` contains the primitives that were previously duplicated inside the `common/` folders of `daplug-ddb` and `daplug-cypher`. It exposes:
 
 - `base_adapter.BaseAdapter` – lightweight SNS-aware adapter scaffold
 - `publisher` – SNS client wrapper with FIFO support and resilient logging
@@ -41,8 +41,8 @@ Key expectation: every file inside `daplug_core/` has a twin in `tests/` (e.g., 
 We standardize on Python 3.9 + Pipenv:
 
 ```bash
-git clone https://github.com/paulcruse3/daplug-base.git
-cd daplug-base
+git clone https://github.com/paulcruse3/daplug-core.git
+cd daplug-core
 pipenv install --dev
 ```
 
@@ -101,9 +101,9 @@ Pytest is configured in `setup.cfg` (`testpaths = tests`). No extra flags are ne
 
 ## 6. Consuming Repo Integration Checklist
 
-Whenever `daplug-base` is updated, the datastore adapters need to:
+Whenever `daplug-core` is updated, the datastore adapters need to:
 
-1. Bump their dependency to the new version (`pipenv install --dev ../daplug-base` during development or install from PyPI once released).
+1. Bump their dependency to the new version (`pipenv install --dev ../daplug-core` during development or install from PyPI once released).
 2. Remove any residual `common/` code (since it’s now redundant).
 3. Replace imports: `from daplug_core import dict_merger` instead of `from .common.dict_merger import merge`.
 4. Re-run their pipelines (`pipenv run test`, custom integration suites, etc.) to ensure nothing broke downstream.

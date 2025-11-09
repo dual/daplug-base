@@ -1,23 +1,23 @@
-# 🧩 daplug-base (da•plug)
+# 🧩 daplug-core (da•plug)
 
 > **Shared schema + event plumbing for daplug-* adapters**
 
-[![CircleCI](https://circleci.com/gh/dual/daplug-ddb.svg?style=shield)](https://circleci.com/gh/dual/daplug-base)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-base&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dual_daplug-base)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-base&metric=bugs)](https://sonarcloud.io/summary/new_code?id=dual_daplug-base)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-base&metric=coverage)](https://sonarcloud.io/summary/new_code?id=dual_daplug-base)
+[![CircleCI](https://circleci.com/gh/dual/daplug-ddb.svg?style=shield)](https://circleci.com/gh/dual/daplug-core)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dual_daplug-core)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-core&metric=bugs)](https://sonarcloud.io/summary/new_code?id=dual_daplug-core)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-core&metric=coverage)](https://sonarcloud.io/summary/new_code?id=dual_daplug-core)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
-[![PyPI package](https://img.shields.io/pypi/v/daplug-base?color=blue&label=pypi%20package)](https://pypi.org/project/daplug-base/)
+[![PyPI package](https://img.shields.io/pypi/v/daplug-core?color=blue&label=pypi%20package)](https://pypi.org/project/daplug-core/)
 [![License](https://img.shields.io/badge/license-apache%202.0-blue)](LICENSE)
-[![Contributions](https://img.shields.io/badge/contributions-welcome-blue)](https://github.com/paulcruse3/daplug-base/issues)
+[![Contributions](https://img.shields.io/badge/contributions-welcome-blue)](https://github.com/paulcruse3/daplug-core/issues)
 
-`daplug-base` is the tiny layer of glue that both `daplug-ddb`, `daplug-cypher`, and future `daplug-*` projects, relied on in their old `common/` directories. It bundles a publisher, logging shim, schema utilities, and merge helpers so the higher-level adapters can stay laser-focused on their respective datastores. This repository is not meant to be a fully fledged adapter on its own—it simply centralizes the primitives the adapters share.
+`daplug-core` is the tiny layer of glue that both `daplug-ddb`, `daplug-cypher`, and future `daplug-*` projects, relied on in their old `common/` directories. It bundles a publisher, logging shim, schema utilities, and merge helpers so the higher-level adapters can stay laser-focused on their respective datastores. This repository is not meant to be a fully fledged adapter on its own—it simply centralizes the primitives the adapters share.
 
 ---
 
 ## 🌈 Why this exists
 
-- **Single source of truth** – The DynamoDB and Cypher adapters used to carry duplicate copies of the same helpers. `daplug-base` keeps those modules in one place.
+- **Single source of truth** – The DynamoDB and Cypher adapters used to carry duplicate copies of the same helpers. `daplug-core` keeps those modules in one place.
 - **Batteries-included SNS publishing** – The base `publisher` encapsulates SNS fan-out, FIFO metadata, and logging so consuming packages can just hand it messages.
 - **Schema-first tooling** – `schema_loader` and `schema_mapper` read OpenAPI/JSON schemas and project payloads to the shapes your adapters expect.
 - **Deterministic merging** – `dict_merger` upgrades nested payloads with configurable list/dict strategies (add, replace, remove) so you can keep optimistic writes tight.
@@ -29,15 +29,15 @@ If you are migrating `daplug-ddb` or `daplug-cypher`, remove their legacy `commo
 ## 📦 Installation
 
 ```bash
-pip install daplug-base
+pip install daplug-core
 # or
-pipenv install daplug-base
+pipenv install daplug-core
 ```
 
 > Not on PyPI yet? Until release, install straight from the repo:
 >
 > ```bash
-> pip install git+https://github.com/paulcruse3/daplug-base.git
+> pip install git+https://github.com/paulcruse3/daplug-core.git
 > ```
 
 ---
@@ -112,8 +112,8 @@ The same pattern applies inside `daplug-cypher` when merging node payloads or fo
 ## ⚙️ Local development
 
 ```bash
-git clone https://github.com/paulcruse3/daplug-base.git
-cd daplug-base
+git clone https://github.com/paulcruse3/daplug-core.git
+cd daplug-core
 pipenv install --dev
 ```
 
