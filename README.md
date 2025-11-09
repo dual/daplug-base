@@ -2,7 +2,7 @@
 
 > **Shared schema + event plumbing for daplug-* adapters**
 
-[![CircleCI](https://circleci.com/gh/dual/daplug-ddb.svg?style=shield)](https://circleci.com/gh/dual/daplug-core)
+[![CircleCI](https://circleci.com/gh/dual/daplug-core.svg?style=shield)](https://circleci.com/gh/dual/daplug-core)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-core&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dual_daplug-core)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-core&metric=bugs)](https://sonarcloud.io/summary/new_code?id=dual_daplug-core)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-core&metric=coverage)](https://sonarcloud.io/summary/new_code?id=dual_daplug-core)
