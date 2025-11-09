@@ -10,6 +10,7 @@ python_version = "3.9.17"
 boto3 = "*"
 jsonref = "*"
 simplejson = "*"
+pyyaml = "*"
 
 [dev-packages]
 mypy = "*"
@@ -22,3 +23,4 @@ pytest-html = "*"
 [scripts]
 lint = "pylint --fail-under 10 daplug_base"
 test = "pytest tests"
+coverage = "coverage run --source daplug_base -m pytest tests --cov=daplug_base --junitxml ./coverage/reports/junit.xml --cov-report xml:./coverage/reports/cov.xml --html=./coverage/reports/index.html --self-contained-html --cov-report html:./coverage/pretty -p no:warnings -o log_cli=true"
