@@ -1,10 +1,15 @@
 # 🧩 daplug-base (da•plug)
 
-> **Shared schema + event plumbing extracted from `daplug-ddb` and `daplug-cypher`**
+> **Shared schema + event plumbing for daplug-* adapters**
 
+[![CircleCI](https://circleci.com/gh/dual/daplug-ddb.svg?style=shield)](https://circleci.com/gh/dual/daplug-base)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-base&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dual_daplug-base)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-base&metric=bugs)](https://sonarcloud.io/summary/new_code?id=dual_daplug-base)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dual_daplug-base&metric=coverage)](https://sonarcloud.io/summary/new_code?id=dual_daplug-base)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
+[![PyPI package](https://img.shields.io/pypi/v/daplug-base?color=blue&label=pypi%20package)](https://pypi.org/project/daplug-base/)
 [![License](https://img.shields.io/badge/license-apache%202.0-blue)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-passing-blue)](#-local-development)
+[![Contributions](https://img.shields.io/badge/contributions-welcome-blue)](https://github.com/paulcruse3/daplug-base/issues)
 
 `daplug-base` is the tiny layer of glue that both `daplug-ddb`, `daplug-cypher`, and future `daplug-*` projects, relied on in their old `common/` directories. It bundles a publisher, logging shim, schema utilities, and merge helpers so the higher-level adapters can stay laser-focused on their respective datastores. This repository is not meant to be a fully fledged adapter on its own—it simply centralizes the primitives the adapters share.
 
