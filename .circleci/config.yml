@@ -6,7 +6,7 @@ commands:
     setup-artifacts:
         steps:
             - run: mkdir ./coverage && mkdir ./coverage/grpc && mkdir ./coverage/lint && mkdir ./coverage/reports && mkdir ./coverage/pretty && mkdir ./coverage/typing || exit 0
-    python-test-report:
+    run-tests:
         steps:
             - run: pipenv run test
             - run: pipenv run coverage
@@ -25,13 +25,16 @@ commands:
             - run: python3 setup.py sdist bdist_wheel
             - run: python3 -m pip install --user --upgrade twine
             - run: python3 -m twine upload dist/*
-    lint-code:
+    run-lint:
         steps:
             - run: pipenv run lint
             - run: pipenv run pylint daplug_core --output-format=json > ./coverage/lint/pylint_report.json || exit 0
             - run: pipenv run pylint-json2html ./coverage/lint/pylint_report.json -o ./coverage/lint/pylint_report.html || exit 0
             - store_artifacts:
                   path: ./coverage/lint
+    run-mypy:
+        steps:
+            - run: pipenv run type-check
 jobs:
     lint:
         docker:
@@ -40,7 +43,15 @@ jobs:
             - attach_workspace:
                   at: ~/project
             - setup-artifacts
-            - lint-code
+            - run-lint
+    typing:
+        docker:
+            - image: cimg/python:3.9.17
+        steps:
+            - attach_workspace:
+                  at: ~/project
+            - setup-artifacts
+            - run-mypy
     test:
         docker:
             - image: cimg/python:3.9.17
@@ -48,7 +59,7 @@ jobs:
             - attach_workspace:
                   at: ~/project
             - setup-artifacts
-            - python-test-report
+            - run-tests
             - sonarcloud/scan
     install-build:
         docker:
@@ -95,5 +106,8 @@ workflows:
             - test:
                   context:
                       - sonarcloud
+                  requires:
+                      - install-build
+            - typing:
                   requires:
                       - install-build

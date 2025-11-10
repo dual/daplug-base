@@ -1,15 +1,18 @@
+from __future__ import annotations
+
 import copy
+from typing import Any, Dict, List
 
 import simplejson as json
 
 
-def merge(original_data, new_data, **kwargs):
+def merge(original_data: Dict[str, Any], new_data: Dict[str, Any], **kwargs: Any) -> Dict[str, Any]:
     updated_data = copy.deepcopy(original_data)
     _walk_dict(updated_data, new_data, **kwargs)
     return updated_data
 
 
-def _walk_dict(old_data, new_data, **kwargs):
+def _walk_dict(old_data: Dict[str, Any], new_data: Dict[str, Any], **kwargs: Any) -> None:
     for new_key in new_data.keys():
         if old_data.get(new_key) and isinstance(new_data[new_key], dict):
             _walk_dict(old_data[new_key], new_data[new_key], **kwargs)
@@ -21,14 +24,14 @@ def _walk_dict(old_data, new_data, **kwargs):
             _merge_dicts(new_key, old_data, new_data, kwargs.get("update_dict_operation", "upsert"))
 
 
-def _merge_dicts(dict_key, old_dict, new_dict, update_dict_operation="upsert"):
+def _merge_dicts(dict_key: str, old_dict: Dict[str, Any], new_dict: Dict[str, Any], update_dict_operation: str = "upsert") -> None:
     if update_dict_operation == "remove":
         old_dict.pop(dict_key, None)
     else:
         old_dict[dict_key] = new_dict[dict_key]
 
 
-def _merge_lists(old_list, new_list, update_list_operation="add"):
+def _merge_lists(old_list: List[Any], new_list: List[Any], update_list_operation: str = "add") -> List[Any]:
     if update_list_operation == "remove":
         _remove_item_in_list(old_list, new_list)
     elif update_list_operation == "add":
@@ -38,7 +41,7 @@ def _merge_lists(old_list, new_list, update_list_operation="add"):
     return old_list
 
 
-def _remove_item_in_list(old_list, new_list):
+def _remove_item_in_list(old_list: List[Any], new_list: List[Any]) -> None:
     for old_item in old_list:
         old = sorted(old_item.items()) if isinstance(old_item, dict) else old_item
         new = sorted(new_list[0].items()) if isinstance(new_list[0], dict) else new_list[0]
@@ -46,7 +49,7 @@ def _remove_item_in_list(old_list, new_list):
             old_list.remove(old_item)
 
 
-def _add_unique_item_in_list(old_list, new_list):
+def _add_unique_item_in_list(old_list: List[Any], new_list: List[Any]) -> None:
     for item in new_list:
         if item not in old_list:
             old_list.append(item)

@@ -1,17 +1,21 @@
+from __future__ import annotations
+
+from typing import Any, Dict
+
 import boto3
 import simplejson as json
 
 from . import logger
 
 
-def publish(**kwargs):
+def publish(**kwargs: Any) -> None:
     if not kwargs.get("arn") or not kwargs.get("data"):
         return
     try:
         sns_client = boto3.client(
             "sns", region_name=kwargs.get("region"), endpoint_url=kwargs.get("endpoint")
         )
-        publish_kwargs = {
+        publish_kwargs: Dict[str, Any] = {
             "TopicArn": kwargs["arn"],
             "Message": json.dumps(kwargs["data"]),
             "MessageAttributes": kwargs.get("attributes", {}),
