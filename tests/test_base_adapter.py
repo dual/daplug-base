@@ -19,7 +19,6 @@ def test_publish_forwards_formatted_attributes(recording_publisher):
     )
 
     adapter.publish(
-        db_operation="create",
         db_data={"id": 1},
         sns_attributes={"count": 5, "ignored": None},
         fifo_group_id="group-1",
@@ -34,7 +33,6 @@ def test_publish_forwards_formatted_attributes(recording_publisher):
     expected_attributes = {
         "default": {"DataType": "String", "StringValue": "value"},
         "count": {"DataType": "Number", "StringValue": 5},
-        "operation": {"DataType": "String", "StringValue": "create"},
     }
     assert call["attributes"] == expected_attributes
     assert call["fifo_group_id"] == "group-1"
@@ -46,9 +44,8 @@ def test_create_format_attributes_excludes_none(recording_publisher):
         sns_attributes={"keep": "yes", "skip": None}
     )
 
-    formatted = adapter.create_format_attributes("update", {"new": 1, "skip": None})
+    formatted = adapter.create_format_attributes({"new": 1, "skip": None})
 
     assert "skip" not in formatted
     assert formatted["keep"] == {"DataType": "String", "StringValue": "yes"}
     assert formatted["new"] == {"DataType": "Number", "StringValue": 1}
-    assert formatted["operation"] == {"DataType": "String", "StringValue": "update"}

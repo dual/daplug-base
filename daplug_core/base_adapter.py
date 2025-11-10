@@ -9,8 +9,8 @@ class BaseAdapter:
         self.sns_endpoint = kwargs.get("sns_endpoint")
         self.sns_defaults = kwargs.get("sns_attributes", {})
 
-    def publish(self, db_operation, db_data, **kwargs):
-        attributes = self.create_format_attributes(db_operation, kwargs.get("sns_attributes", {}))
+    def publish(self, db_data, **kwargs):
+        attributes = self.create_format_attributes(kwargs.get("sns_attributes", {}))
         self.publisher.publish(
             endpoint=self.sns_endpoint,
             arn=self.sns_arn,
@@ -20,8 +20,8 @@ class BaseAdapter:
             fifo_duplication_id=kwargs.get("fifo_duplication_id"),
         )
 
-    def create_format_attributes(self, operation, call_attributes):
-        combined = {**self.sns_defaults, **call_attributes, **{"operation": operation}}
+    def create_format_attributes(self, call_attributes):
+        combined = {**self.sns_defaults, **call_attributes}
         formatted_attributes = {}
         for key, value in combined.items():
             if value is not None:
